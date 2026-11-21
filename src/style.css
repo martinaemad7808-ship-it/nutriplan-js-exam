@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/* Scan JS files for Tailwind classes used inside template strings */
+@source "./";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+}
+
+/* ===================== Base ===================== */
+button,
+a,
+[role="button"],
+.recipe-card,
+.category-card,
+.area-filter-btn,
+.water-glass,
+.ingredient-checkbox,
+label[for] {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.line-clamp-1,
+.line-clamp-2,
+.line-clamp-3 {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+.line-clamp-1 { -webkit-line-clamp: 1; }
+.line-clamp-2 { -webkit-line-clamp: 2; }
+.line-clamp-3 { -webkit-line-clamp: 3; }
+
+/* ===================== Cards ===================== */
+.recipe-card,
+.category-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.recipe-card:hover,
+.category-card:hover {
+  transform: translateY(-4px);
+}
+.recipe-card img {
+  transition: transform 0.5s;
+}
+.recipe-card:hover img {
+  transform: scale(1.1);
+}
+
+.area-filter-btn {
+  transition: all 0.2s;
+}
+.area-filter-btn:hover {
+  transform: scale(1.05);
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: #10b981;
+}
+
+.overflow-y-auto::-webkit-scrollbar { display: block; width: 6px; }
+.overflow-y-auto::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px; }
+.overflow-y-auto::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+.overflow-y-auto::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+#settings-section input:focus,
+#settings-section select:focus {
+  box-shadow: 0 0 0 3px #10b98133;
+}
+
+/* ===================== Header / Sidebar buttons ===================== */
+#header-menu-btn {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  color: #374151;
+  background: transparent;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+#header-menu-btn:hover {
+  background: #f3f4f6;
+}
+
+#sidebar-close-btn {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  font-size: 16px;
+  color: #6b7280;
+  background: transparent;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+#sidebar-close-btn:hover {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+/* ===================== Toast ===================== */
+.toast-notification {
+  animation: slideInUp 0.3s, fadeOut 0.3s 2.7s forwards;
+}
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+/* ===================== Responsive ===================== */
+@media (max-width: 1024px) {
+  #sidebar {
+    width: 288px;
+    box-shadow: none;
+    transition: transform 0.3s;
+    transform: translateX(-100%);
+  }
+  #sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 20px #00000026;
+  }
+  #main-content {
+    margin-left: 0 !important;
+  }
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    opacity: 0;
+    background-color: #00000080;
+    transition: opacity 0.3s;
+  }
+  .sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+  }
+  #header-menu-btn,
+  #sidebar-close-btn {
+    display: flex !important;
+  }
+  .px-8 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  #header h1 {
+    font-size: 1.25rem;
+  }
+  #header p {
+    display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid-cols-4 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .grid-cols-4,
+  .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .px-8 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  #search-filters-section .flex.gap-3 {
+    flex-wrap: wrap;
+  }
+  .grid-cols-6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-cols-4,
+  .grid-cols-3,
+  .grid-cols-2 { grid-template-columns: 1fr; }
+}
+
+@media print {
+  #sidebar,
+  #header {
+    display: none !important;
+  }
+  #main-content {
+    margin-left: 0 !important;
+  }
+}
